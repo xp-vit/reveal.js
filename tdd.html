@@ -226,7 +226,7 @@ public void shouldSayHelloDollyWhenPassingHelloDolly() {
 					</ul>
 				</section>
 				<section>
-					<h1>JUnit 5 is out</h1>
+					<h1>BTW:JUnit 5 is out</h1>
 					<small>19th of March</small>
 					<section>
 					<p>Assumptions and Tags
@@ -282,6 +282,16 @@ assertThat(fellowshipOfTheRing)
                 tuple("Legolas", 1000, "Elf"));</code></pre>
                 </section>
 				</section>
+
+				<section>
+				<h2>Anything else?
+					<ul>
+						<li class="fragment">Fast PC (SSD preferabele)</li>
+						<li class="fragment">IDE</li>
+						<li class="fragment">CI</li>
+					</ul>
+				</section>
+
     			<section>
 					<h1>Ok, Let's test?</h1>
 				</section>
@@ -633,10 +643,11 @@ a = true; b = false;
 							MyService.java -> MyServiceIT.java
 					</section><section>
 					<p>Test methods convention:</p>
-	<pre><code>should(DoSmth)When(Condition)On(Method)
+	<pre><code>should(DoSmth)When(Condition)On(Method)</code></pre>
 
-shouldReturnCarrierWhenCarrierExistsOnFindOne
-shouldThrowExWhenCarrierNotExistsOnFindOne</code></pre>
+
+<span class="fragment"><pre><code>shouldReturnCarrierWhenCarrierExistsOnFindOne
+shouldThrowExWhenCarrierNotExistsOnFindOne </span></code></pre>
 </section>
    			</section>
    			<section>
@@ -651,7 +662,27 @@ shouldThrowExWhenCarrierNotExistsOnFindOne</code></pre>
    			</section>
    			
    			<section>
-   				
+   				<h2>Easy Recipe to Cook Tests</h2>
+   				<ul>
+   					<li class="fragment">Don’t be afraid and be Brave!!!</li>
+   					<li class="fragment">Prepare your environment</li>
+   					<li class="fragment">Start testing small (atomic) pieces of your functionality</li>
+   					<li class="fragment">Always Test: positive flow, boundary conditions, exceptions</li>
+   					<li class="fragment">Reproduce all manually found bugs with tests</li>
+   					<li class="fragment">Run tests on CI, collect and analyze metrics
+</li>
+   					<li  class="fragment">Improve your environment constantly</li>
+   				</ul>
+   			</section>
+
+   			<section>
+   				<h2>Huge Project and No Tests</h2>
+   				<ul>
+   					<li class="fragment">Create Environment to run Integration Tests</li>
+   					<li class="fragment">Cover your major functionality with IT</li>
+   					<li class="fragment">Start refactoring to break your Project to smaller pieces and Unit test those pieces</li>
+   					<li class="fragment">Use IT from Point 2 to make sure Project is still Stable</li>
+   				</ul>
    			</section>
 
 			</div>
