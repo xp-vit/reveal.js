@@ -208,8 +208,14 @@ public void shouldSayHelloDollyWhenPassingHelloDolly() {
 				</section>
 				<section>
 					<h2>JUnit vs. TestNG</h2>
-					<img src="junit-vs-testngjpg.jpg"/>
+					<section>
+						<img src="junit-vs-testngjpg.jpg"/>
+					</section>
+					<section>
+						<img src="junit-vs-testng-google.png"/>
+					</section>
 				</section>
+
 				<section>
 					<h2>My choice: JUnit</h2>
 					<ul>
@@ -220,12 +226,65 @@ public void shouldSayHelloDollyWhenPassingHelloDolly() {
 					</ul>
 				</section>
 				<section>
+					<h1>JUnit 5 is out</h1>
+					<small>19th of March</small>
+					<section>
+					<p>Assumptions and Tags
+					<pre><code>@Test
+@Tag("jenkins")
+public void windowsOnly() {
+    Assumptions.assumeTrue(System.getenv("OS")
+    .startsWith("Windows"));
+}</code></pre>
+					</p>
+					</section>
+					<section>
+						<p>Extension model
+					<pre><code>@ExtendWith(MockitoExtension.class)
+@ExtendWith(CdiUnitExtension.class)
+public class Test4 {
+@Test</code></pre>
+					</p>
+					</section>
+				</section>
+				<section>
 					<h1>Ok, What else?</h1>
+				</section>
+				<section>
+					<h1>Assertions framework</h1>
+					<ul>
+						<li class="fragment">native JUnit assertions</li>
+						<li class="fragment">Hamhrest Matchers</li>
+						<li class="fragment">AssertJ</li>
+						<li class="fragment">...</li>
+					</ul>
+				</section>
+				<section>
+					<h1>AssertJ</h1>
+					<section>
+					<pre><code>import static org.assertj.core.api.Assertions.*;
+assertThat(fellowshipOfTheRing).hasSize(9)
+                               .contains(frodo, sam)
+                               .doesNotContain(sauron);</code></pre>
+                </section>
+                <section>
+					<pre><code>import static org.assertj.core.api.Assertions.*;
+assertThat(fellowshipOfTheRing).extracting("name")
+        .contains("Boromir", "Gandalf", "Frodo", "Legolas")
+        .doesNotContain("Sauron", "Elrond");</code></pre>
+                </section>
+                <section>
+					<pre><code>import static org.assertj.core.api.Assertions.*;
+assertThat(fellowshipOfTheRing)
+		.extracting("name", "age", "race.name")
+                .contains(tuple("Boromir", 37, "Man"),
+                tuple("Sam", 38, "Hobbit"),
+                tuple("Legolas", 1000, "Elf"));</code></pre>
+                </section>
 				</section>
     			<section>
 					<h1>Ok, Let's test?</h1>
 				</section>
-
 				<section>
     				<pre><code>public int summ (String x, String y){
     return Integer.parseInt(x) + Integer.parseInt(y);
@@ -552,16 +611,49 @@ a = true; b = false;
     				  <h4> Comparison of code coverage tools</h4>
     				  <img src="coverageToolsComparison.png"/>
     			</section>
+    			<section>
+    				<h2>Unit and Integration Tests</h2>
+    				<section>
+    				<p class="fragment"><strong>Unit testing</strong> - is a software testing method by which individual units of source code.</p>    					
+    				<p class="fragment"><strong>Integration testing</strong> - is the phase in software testing in which individual software modules are combined and tested as a group.</p>
+    				</section>
+    				<section>
+    				    <p><img src="arquillian-integration-testing-made-easy.jpg"></p>
+    				</section>
+    				<section>
+    				   <p><img src="unit-integration.png"></p>
+    				</section>
+    			</section>
+    			<section>
+    				<h2>Test Naming Conventions</h2>
+    				<section>
+    				<h6>Test classes named with postfix Test or IT:</h6>
+							MyUtility.java -> MyUtilityTest.java<br/>
+							MyUtility.java -> MyUtilityMyMethodTest.java<br/>
+							MyService.java -> MyServiceIT.java
+					</section><section>
+					<p>Test methods convention:</p>
+	<pre><code>should(DoSmth)When(Condition)On(Method)
 
-    			<section>
-    				<h2>Unit Tests vs. Interation Tests</h2>
-    			</section>
-    			<section>
-    				<h2>Tools</h2>
-    			</section>
-    			<section>
-    				<h2>Border Conditions</h2>
-    			</section>
+shouldReturnCarrierWhenCarrierExistsOnFindOne
+shouldThrowExWhenCarrierNotExistsOnFindOne</code></pre>
+</section>
+   			</section>
+   			<section>
+   				<h2>What else?</h2>
+   				<ul>
+   					<li  class="fragment">Include tests into estimates</li>
+   					<li  class="fragment">Include tests into DoD</li>
+   					<li  class="fragment">Include tests run and review into Code Review</li>
+   					<li  class="fragment">Run tests on CI on each commit</li>
+   					<li  class="fragment">Post test Results to SonarQube</li>
+   				</ul>
+   			</section>
+   			
+   			<section>
+   				
+   			</section>
+
 			</div>
 		</div>
 		<script src="lib/js/head.min.js"></script>
