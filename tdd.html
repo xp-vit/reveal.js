@@ -233,6 +233,7 @@ public void shouldSayHelloDollyWhenPassingHelloDolly() {
 						<li class="fragment">Better integration with Gradle</li>
 						<li class="fragment">Better integration with Spring</li>
 						<li class="fragment">Better integration with IDE</li>
+						<li class="fragment">Spock is build on top of JUnit</li>
 						<li class="fragment">Historically...</li>
 					</ul>
 				</section>
@@ -264,7 +265,7 @@ public class Test4 {
 				<section>
 					<h1>Assertions framework</h1>
 					<ul>
-						<li class="fragment">native JUnit assertions</li>
+						<li class="fragment">native JUnit  assertions</li>
 						<li class="fragment">Hamhrest Matchers</li>
 						<li class="fragment">AssertJ</li>
 						<li class="fragment">...</li>
@@ -292,6 +293,104 @@ assertThat(fellowshipOfTheRing)
                 tuple("Sam", 38, "Hobbit"),
                 tuple("Legolas", 1000, "Elf"));</code></pre>
                 </section>
+				</section>
+
+				<section>
+				<h2>Mocking dependencies</h2>
+				<p> - make a replica or imitation of behaviour, so that class under test has no knowledge whether the dependency is real or an imitation.</p>
+					<ul>
+						<li class="fragment">EasyMock</li>
+						<li class="fragment">JMock</li>
+						<li class="fragment">Mockito</li>
+						<li class="fragment">PowerMock (!) warning</li>
+					</ul>
+				</section>
+				<section>
+				<h2>Mockito</h2>
+					<pre><code>import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+import java.util.Iterator;
+import org.junit.Test;
+....
+@Test
+public void shouldReturnHelloWorld(){
+    //create mock
+    Iterator i=mock(Iterator.class);
+    when(i.next()).thenReturn("Hello").thenReturn("World");
+    //invoke
+    String result=i.next()+" "+i.next();
+    //assert
+    assertEquals("Hello World", result);
+}</code></pre>				
+				</section>
+				<section>
+				<h2>Mocking DB</h2>
+ 					<ul>
+						<li class="fragment">H2</li>
+						<li class="fragment">Hyper SQL</li>
+					</ul>
+						<p class="fragment">+</p>
+					<ul>
+						<li class="fragment">DBSetup by Ninja Squad</li>
+						<li class="fragment">DBUnit</li>
+					</ul>
+				</section>
+				<section>
+					<h1>H2+DBUnit</h1>
+					<pre><code>
+<dataset>					
+  <admin id="1" name="username" pass="pass" status="ENABLED"/>
+  <admin id="2" name="username2" pass="pass" status="ENABLED"/>
+</dataset>
+</code></pre>
+				<pre><code>
+@DatabaseSetup(value = "AdminRepoIT.xml",
+type = DatabaseOperation.CLEAN_INSERT)
+@DatabaseTearDown(value = "AdminRepoIT.xml", 
+type = DatabaseOperation.DELETE_ALL)
+public class AdminRepoIT extends SpringDefaultIT { 
+    ...
+}</code></pre>
+				</section>
+				<section>
+				<h1>Spock Framework</h1>
+				<section>
+				<pre><code>
+def "should successfully access admin URLs"() {
+        expect:
+        mockMvc.perform(get(url).session(adminSession()))
+        .andReturn().response.status == 200
+        where:
+        url << [
+                '/changePassword.htm',
+                '/UserAdminSearch.htm',
+                '/addUser.htm'
+        ]
+    }
+</code></pre>
+</section><section>
+<pre><code>
+    def "should not be able access API URLs"() {
+        expect:
+        mockMvc.perform(get(url).with(user(ADMIN).password(PASSWORD)))
+        .andReturn().response.status == 403
+        where:
+        url << [
+        '/api/rest/v2/models/search',
+        '/api/rest/v2/models/fulltextsearch?q=apple',
+        '/api/rest/v2/models/map'
+        ]
+    }
+				</code></pre>					
+				</section>
+				</section>
+				<section>
+					<h2>Test-Friendly Frameworks</h2>
+					<ul>
+						<li class="fragment">Spring + Spring Test</li>
+						<li class="fragment">EJB 3.1 + embeddable container</li>
+						<li class="fragment">Play Framework</li>
+					</ul>
 				</section>
 
 				<section>
