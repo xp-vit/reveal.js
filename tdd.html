@@ -75,7 +75,6 @@ public void shouldSayHelloDollyWhenPassingHelloDolly() {
 					<h2>TDD? What the heck it is?</h2>
 					<section>
 						<p>Software development technique where you write your automated tests <strong style="color:orange;">before(!)</strong> you write implementation</p>
-						<p>(c) <a href="https://www.wikipedia.org/">Wikipedia</a></p>
 					</section>
 					<section>
 					<h1> </h1>
@@ -213,7 +212,16 @@ public void shouldSayHelloDollyWhenPassingHelloDolly() {
             			<p data="11|3" class="fragment"><span style="color:#00FF00;">Bonus:</span> No need to write(read) developer documentation</p>
         			</section>
     			</section>
-
+    			<section>
+    				<h2>Unit vs. Integration Tests</h2>
+    				<section>
+    				<p class="fragment"><strong>Unit testing</strong> - is a software testing method by which individual units of source code.</p>    					
+    				<p class="fragment"><strong>Integration testing</strong> - is software testing method in which individual software modules are combined and tested as a group.</p>
+    				</section>
+    				<section>
+    				    <p><img src="arquillian-integration-testing-made-easy.jpg"></p>
+    				</section>
+    			</section>
     			<section>
 					<h1>Ok, What do I need?</h1>
 				</section>
@@ -353,6 +361,43 @@ public class AdminRepoIT extends SpringDefaultIT {
 }</code></pre>
 				</section>
 				<section>
+    				<h2>Are my tests good enough?</h2>
+    				<p><strong class="fragment">Coverage</strong> <span class = "fragment">- is a measure used to describe the degree to which the source code of a program is tested by a particular test suite.  </span></p>
+    			</section>
+    			<section>
+    				<h2>Coverage Types</h2>
+    				<p class="fragment"> - Class coverage</p>
+    				<p class="fragment"> - Method coverage</p>
+    				<p class="fragment"> - Line(Statement) coverage</p>
+    				<p class="fragment"> - Branch coverage</p>
+    				<p class="fragment"> - Condition coverage</p>
+    			</section>
+
+    			<section>
+    				<h2>Coverage Measuring Tools</h2>
+    				<ul>
+    					<li class="fragment">Jacoco (ex. EMMA)</li>
+    					<li class="fragment">Cobertura</li>
+    					<li class="fragment">Atlassin Clover</li>
+    					<li class="fragment">JCov</li>
+    					<li class="fragment">Code Cover</li>
+    				</ul>
+    				</section>
+    				<section>
+    					<h6>My Choice: <strong>JaCoCo</strong></h6>
+    					<ul>
+    						<li class="fragment">Supported by Eclipse/IDEA</li>
+    						<li class="fragment">Supported by Sonar</li>
+    						<li class="fragment">Better JUnit support</li>
+    						<li class="fragment">Easy integration</li>
+    						<li class="fragment">Maintained on GitHub</li>
+    					</ul>
+    				</section>
+    			<section>
+    				  <h4> Comparison of code coverage tools</h4>
+    				  <img src="coverageToolsComparison.png"/>
+    			</section>
+				<section>
 				<h1>Spock Framework</h1>
 				<section>
 				<pre><code>
@@ -390,18 +435,18 @@ def "should successfully access admin URLs"() {
 						<li class="fragment">Spring + Spring Test</li>
 						<li class="fragment">EJB 3.1 + embeddable container</li>
 						<li class="fragment">Play Framework</li>
+						<li class="fragment">...</li>
 					</ul>
 				</section>
-
 				<section>
 				<h2>Anything else?
 					<ul>
-						<li class="fragment">Fast PC (SSD preferabele)</li>
-						<li class="fragment">IDE</li>
+						<li class="fragment">Fast PC (SSD preferable)</li>
+						<li class="fragment">Compatible IDE</li>
 						<li class="fragment">CI</li>
+						<li class="fragment">SonarQube</li>
 					</ul>
 				</section>
-
     			<section>
 					<h1>Ok, Let's test?</h1>
 				</section>
@@ -416,6 +461,7 @@ def "should successfully access admin URLs"() {
 							<li class="fragment">0+2=2</li>
 							<li class="fragment">...</li>
 							<li class="fragment">0+99999=99999</li>
+							<li class="fragment">-1+1=0</li>
 							<li class="fragment">...</li>
 						</ul>
 					</section>
@@ -651,127 +697,14 @@ public void shouldThrowExWhenPassingNull(){
 }</code></pre></p>
 					</section>
     			</section>
-
-				<section>
-    				<h2>Are my tests good enough?</h2>
-    				<p><strong class="fragment">Coverage</strong> <span class = "fragment">- is a measure used to describe the degree to which the source code of a program is tested by a particular test suite.  </span></p>
-    			</section>
-
-    			<section>
-    				<h2>Coverage</h2>
-    				<p class="fragment"> - Class coverage</p>
-    				<p class="fragment"> - Method coverage</p>
-    				<p class="fragment"> - Line(Statement) coverage</p>
-    				<p class="fragment"> - Branch coverage</p>
-    				<p class="fragment"> - Condition coverage</p>
-    			</section>
-    			<section>
-    				<pre><code>if(a && b){
-    doSomething();
-}</code></pre>
-				<section>
-					<h6>100% Line Coverage</h6>
-					<pre><code>a = true; b = true;
-</code></pre>
-				</section>
-				<section>
-				<p>
-					<h6>100% Branch Coverage</h6>
-					<pre><code>a = true; b = true;
-a = false; b = true;</code></pre>
-				</p>
-				<p>
-					<h6>100% Condition Coverage</h6>
-					<pre><code>a = false; b = true;
-a = true; b = false;
-</code></pre>
-				</p>
-				</section>
-    			</section>
-
-    			<section>
-    				<h2>Coverage Measuring Tools</h2>
-    				<section>
-    					<p>Eclipse + Jacoco plugin (ex. EMMA)</p>
-    					<img src="eclipsecoverageview.png"/>
-    				</section>
-    				<section>
-    					<h1></h1>
-    					<img src="eclipsecoverageview-instructions.png"/>
-    				</section>
-    				<section>
-    					<h1></h1>
-    					<img src="fullcorereport.jpg"/>
-    				</section>
-    				<section>
-    					<h1></h1>
-    					<img src="eclipsecoverageview-big.png"/>
-    				</section>
-    				<section>
-    					<p>IntelliJ IDEA</p>
-    					<img src="idea-coverage.png"/>
-    					<p>
-    					<a href="https://youtrack.jetbrains.com/issue/IDEA-102075">IDEA-102075</a>: Update code coverage results to include branch coverage column</p>
-    				</section>
-    				<section>
-    					<p>Cobertura</p>
-    					<img src="cobertura-junit.png"/>
-    				</section>
-    				<section>
-    					<h6>My Choice: <strong>JaCoCo</strong></h6>
-    					<ul>
-    						<li class="fragment">Supported by Eclipse/IDEA</li>
-    						<li class="fragment">Supported by Sonar</li>
-    						<li class="fragment">Better JUnit support</li>
-    						<li class="fragment">Easy integration</li>
-    					</ul>
-    				</section>
-    			</section>
-    			<section>
-    				  <h4> Comparison of code coverage tools</h4>
-    				  <img src="coverageToolsComparison.png"/>
-    			</section>
-    			<section>
-    				<h2>Unit and Integration Tests</h2>
-    				<section>
-    				<p class="fragment"><strong>Unit testing</strong> - is a software testing method by which individual units of source code.</p>    					
-    				<p class="fragment"><strong>Integration testing</strong> - is the phase in software testing in which individual software modules are combined and tested as a group.</p>
-    				</section>
-    				<section>
-    				    <p><img src="arquillian-integration-testing-made-easy.jpg"></p>
-    				</section>
-    				<section>
-    				   <p><img src="unit-integration.png"></p>
-    				</section>
-    			</section>
-    			<section>
-   				<h2>Integration Tests</h2>
-
-  				<a target="_blank" href="https://docs.google.com/presentation/d/1mwt9muaE6oAqoWv0waMKLbrrOeBMgOsJYtT4GlaOSBQ/edit#slide=id.p">Presentation</a>
-  			</section>
-    			<section>
-    				<h2>Test Naming Conventions</h2>
-    				<section>
-    				<h6>Test classes named with postfix Test or IT:</h6>
-							MyUtility.java -> MyUtilityTest.java<br/>
-							MyUtility.java -> MyUtilityMyMethodTest.java<br/>
-							MyService.java -> MyServiceIT.java
-					</section><section>
-					<p>Test methods convention:</p>
-	<pre><code>should(DoSmth)When(Condition)On(Method)</code></pre>
-
-
-<span class="fragment"><pre><code>shouldReturnCarrierWhenCarrierExistsOnFindOne
-shouldThrowExWhenCarrierNotExistsOnFindOne </span></code></pre>
-</section>
-   			</section>
    			<section>
    				<h2>What else?</h2>
    				<ul>
    					<li  class="fragment">Include tests into estimates</li>
+   					<li  class="fragment">Use tests for code verification on local</li>
    					<li  class="fragment">Include tests into DoD</li>
    					<li  class="fragment">Include tests run and review into Code Review</li>
-   					<li  class="fragment">Run tests on CI on each commit</li>
+   					<li  class="fragment">Run tests on CI on each commit to master  branch</li>
    					<li  class="fragment">Post test Results to SonarQube</li>
    				</ul>
    			</section>
@@ -780,16 +713,16 @@ shouldThrowExWhenCarrierNotExistsOnFindOne </span></code></pre>
    				<h2>Easy Recipe to Cook Tests</h2>
    				<ul>
    					<li class="fragment">Don’t be afraid and be Brave!!!</li>
-   					<li class="fragment">Prepare your environment</li>
-   					<li class="fragment">Start testing small (atomic) pieces of your functionality</li>
+   					<li class="fragment">Prepare your test infrastructure</li>
+   					<li class="fragment">Test small (atomic) pieces of your functionality</li>
    					<li class="fragment">Always Test: positive flow, boundary conditions, exceptions</li>
    					<li class="fragment">Reproduce all manually found bugs with tests</li>
    					<li class="fragment">Run tests on CI, collect and analyze metrics
 </li>
    					<li  class="fragment">Improve your environment constantly</li>
+   					<li  class="fragment">Feel better and sleep well when tests are <span style="color:#0F0;">green</span></li>
    				</ul>
    			</section>
-
    			<section>
    				<h2>Huge Project and No Tests</h2>
    				<ul>
@@ -799,7 +732,51 @@ shouldThrowExWhenCarrierNotExistsOnFindOne </span></code></pre>
    					<li class="fragment">Use IT from Point 2 to make sure Project is still Stable</li>
    				</ul>
    			</section>
+   			<section>
+   				<h2>Motivate your Teammates</h2>
+   				<section>
+   				<ul>
+   					<li class="fragment">Stay focused on task</li>
+   					<li class="fragment">Work convenience and efficiency</li>
+   					<li class="fragment">Better software architecture and maintainability</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Less time spend for work</p>
+   				</section>
+   				<section>
+   				<ul>
+   					<li class="fragment">Better quality</li>
+   					<li class="fragment">Less production issues</li>
+   					<li class="fragment">Higher productivity</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Promotions and Salary Raise</p>
+   				</section>
+   				<section>
+   				<ul>
+   					<li class="fragment">Less production issues</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Sleep Well</p>
+   				</section>
 
+   			</section>
+   			<section>
+   				<h2>Sell Tests to your Manager</h2>
+   				<section>
+   				<ul>
+   					<li class="fragment">Faster change requests implementation</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Smaller turnaround time</p>
+   				</section>
+   				<section>
+   				<ul>
+   					<li class="fragment">Less production issues</li>
+   					<li class="fragment">Less QA work</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Cheaper development and integration</p>
+   				</section>
+   			</section>
+   			<section>
+   				<h2>Thanks! Questions?</h2>
+   			</section>
 			</div>
 		</div>
 		<script src="lib/js/head.min.js"></script>
