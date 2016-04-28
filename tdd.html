@@ -305,11 +305,19 @@ assertThat(fellowshipOfTheRing)
 						<li class="fragment">EasyMock</li>
 						<li class="fragment">JMock</li>
 						<li class="fragment">Mockito</li>
-						<li class="fragment">PowerMock (!) warning</li>
+						<li class="fragment">PowerMock <span class="fragment" style="color:red;">(!) warning</span></li>
 					</ul>
 				</section>
 				<section>
-				<h2>Mockito</h2>
+				<h2>My Choice: Mockito</h2>
+				<section>
+					<ul>
+						<li class="fragment">Better integration with Spring</li>
+						<li class="fragment">Supports partial mocking</li>
+						<li class="fragment">Better integration with JUnit</li>
+					</ul>
+				</section>
+				<section>
 					<pre><code>import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 import java.util.Iterator;
@@ -327,9 +335,11 @@ public void shouldReturnHelloWorld(){
     verify(iMock, times(2)).next();
 }</code></pre>				
 				</section>
+				</section>
 				<section>
 				<h2>Mocking DB</h2>
  					<ul>
+ 						<li class="fragment">Apache Derby</li>
 						<li class="fragment">H2</li>
 						<li class="fragment">Hyper SQL</li>
 					</ul>
@@ -341,20 +351,41 @@ public void shouldReturnHelloWorld(){
 				</section>
 				<section>
 					<h1>H2+DBUnit</h1>
-					<pre><code>
-<dataset>					
+					<section>
+						<ul>
+						<li class="fragment">H2 is very fast</li>
+						<li class="fragment">Better support of SQL specification</li>
+						<li class="fragment">Easy injection</li>
+					</ul>
+					<pre class="fragment"><code>
+<jdbc:embedded-database id="dataSource" type="H2">
+</jdbc:embedded-database>
+
+<util:properties id="jpaProperties">
+    <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect
+    </prop>
+</util:properties></code></pre>
+					</section>
+					<section>
+					<ul>
+						<li class="fragment">DBUnit has better maitenance support</li>
+						<li class="fragment">Better integation with Spring</li>
+					</ul>
+					<span class="fragment">
+					<pre><code><dataset>					
   <admin id="1" name="username" pass="pass" status="ENABLED"/>
   <admin id="2" name="username2" pass="pass" status="ENABLED"/>
 </dataset>
 </code></pre>
-				<pre><code>
-@DatabaseSetup(value = "AdminRepoIT.xml",
+				<pre><code>@DatabaseSetup(value = "AdminRepoIT.xml",
 type = DatabaseOperation.CLEAN_INSERT)
 @DatabaseTearDown(value = "AdminRepoIT.xml", 
 type = DatabaseOperation.DELETE_ALL)
 public class AdminRepoIT extends SpringDefaultIT { 
     ...
-}</code></pre>
+}</code></pre></span>
+				</section>
+				<section><p>(!) Both tools are Open Source</p></section>
 				</section>
 				<section>
     				<h2>Are my tests good enough?</h2>
@@ -385,7 +416,7 @@ public class AdminRepoIT extends SpringDefaultIT {
     						<li class="fragment">Supported by Eclipse/IDEA</li>
     						<li class="fragment">Supported by SonarQube</li>
     						<li class="fragment">Better JUnit support</li>
-    						<li class="fragment">Easy integration</li>
+    						<li class="fragment">Easy integration to build process (Gradle)</li>
     						<li class="fragment">Maintained on GitHub</li>
     					</ul>
     				</section>
@@ -474,7 +505,7 @@ def "should successfully access admin URLs"() {
 							<li class="fragment">0</li>
 							<li class="fragment">Integer.MAX_VALUE, Integer.MIN_VALUE</li>
 							<li class="fragment">null</li>
-							<li class="fragment">one hundred (String number)</li>
+							<li class="fragment">"one hundred" (String number)</li>
 							<li class="fragment">"NooooTaNumber" (NaN)</li>
 						</ul>
 					</section>
@@ -737,8 +768,8 @@ public void shouldThrowExWhenPassingNull(){
    				<h2>Motivate your Teammates</h2>
    				<section>
    				<ul>
-   					<li class="fragment">Stay focused on task</li>
-   					<li class="fragment">Work convenience and efficiency</li>
+   					<li class="fragment">Stay focused on task (in IDE)</li>
+   					<li class="fragment">Higher work convenience and efficiency</li>
    					<li class="fragment">Better software architecture and maintainability</li>
    				</ul>
    				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Less time spend for work</p>
