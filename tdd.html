@@ -281,15 +281,10 @@ public class Test4 {
 				</section>
 				<section>
 					<h1>AssertJ</h1>
-					<section>
-					<pre><code>import static org.assertj.core.api.Assertions.*;
-assertThat(fellowshipOfTheRing).hasSize(9)
-                               .contains(frodo, sam)
-                               .doesNotContain(sauron);</code></pre>
-                </section>
                 <section>
 					<pre><code>import static org.assertj.core.api.Assertions.*;
-assertThat(fellowshipOfTheRing).extracting("name")
+assertThat(fellowshipOfTheRing).hasSize(9)
+		.extracting("name")
         .contains("Boromir", "Gandalf", "Frodo", "Legolas")
         .doesNotContain("Sauron", "Elrond");</code></pre>
                 </section>
@@ -323,12 +318,13 @@ import org.junit.Test;
 @Test
 public void shouldReturnHelloWorld(){
     //create mock
-    Iterator i=mock(Iterator.class);
-    when(i.next()).thenReturn("Hello").thenReturn("World");
+    Iterator iMock=mock(Iterator.class);
+    when(iMock.next()).thenReturn("Hello").thenReturn("World");
     //invoke
-    String result=i.next()+" "+i.next();
+    String result=iMock.next()+" "+iMock.next();
     //assert
     assertEquals("Hello World", result);
+    verify(iMock, times(2)).next();
 }</code></pre>				
 				</section>
 				<section>
@@ -387,12 +383,16 @@ public class AdminRepoIT extends SpringDefaultIT {
     					<h6>My Choice: <strong>JaCoCo</strong></h6>
     					<ul>
     						<li class="fragment">Supported by Eclipse/IDEA</li>
-    						<li class="fragment">Supported by Sonar</li>
+    						<li class="fragment">Supported by SonarQube</li>
     						<li class="fragment">Better JUnit support</li>
     						<li class="fragment">Easy integration</li>
     						<li class="fragment">Maintained on GitHub</li>
     					</ul>
     				</section>
+    				<section>
+    				  <h4>Jacoco + Eclipse</h4>
+    				  <img src="eclipsecoverageview-big.png"/>
+    			</section>
     			<section>
     				  <h4> Comparison of code coverage tools</h4>
     				  <img src="coverageToolsComparison.png"/>
@@ -405,6 +405,7 @@ def "should successfully access admin URLs"() {
         expect:
         mockMvc.perform(get(url).session(adminSession()))
         .andReturn().response.status == 200
+        
         where:
         url << [
                 '/changePassword.htm',
