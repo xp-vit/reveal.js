@@ -432,34 +432,31 @@ public class AdminRepoIT extends SpringDefaultIT {
 				<section>
 				<h1>Spock Framework</h1>
 				<section>
-				<pre><code>
-def "should successfully access admin URLs"() {
-        expect:
-        mockMvc.perform(get(url).session(adminSession()))
-        .andReturn().response.status == 200
+				<pre><code>def "should successfully access admin URLs"() {
+    expect:
+    	mockMvc.perform(get(url).session(adminSession()))
+    	.andReturn().response.status == 200
 
-        where:
-        url << [
-                '/changePassword.htm',
-                '/UserAdminSearch.htm',
-                '/addUser.htm'
+    where:
+    url << [
+           '/changePassword.htm',
+           '/UserAdminSearch.htm',
+           '/addUser.htm'
         ]
-    }
-</code></pre>
+    }</code></pre>
 </section><section>
-<pre><code>
-    def "should not be able access API URLs"() {
-        expect:
-        mockMvc.perform(get(url).with(user(ADMIN).password(PASSWORD)))
+<pre><code>def "should not be able access API URLs"() {
+    expect:
+        mockMvc.perform(get(url)
+        .with(user(ADMIN).password(PASSWORD)))
         .andReturn().response.status == 403
-        where:
-        url << [
+    where:
+    url << [
         '/api/rest/v2/models/search',
         '/api/rest/v2/models/fulltextsearch?q=apple',
         '/api/rest/v2/models/map'
         ]
-    }
-				</code></pre>					
+    }</code></pre>					
 				</section>
 				</section>
 				<section>
@@ -472,12 +469,12 @@ def "should successfully access admin URLs"() {
 					</ul>
 				</section>
 				<section>
-				<h2>Anything else?
+				<h2>Anything else?</h2>
 					<ul>
 						<li class="fragment">Fast PC (SSD preferable)</li>
 						<li class="fragment">Compatible IDE</li>
 						<li class="fragment">CI</li>
-						<li class="fragment">SonarQube</li>
+						<li class="fragment">Report Board (SonarQube)</li>
 					</ul>
 				</section>
     			<section>
@@ -731,10 +728,10 @@ public void shouldThrowExWhenPassingNull(){
 					</section>
     			</section>
    			<section>
-   				<h2>What else?</h2>
+   				<h2>Ok, How to start?</h2>
    				<ul>
    					<li  class="fragment">Include tests into estimates</li>
-   					<li  class="fragment">Use tests for code verification on local</li>
+   					<li  class="fragment">Use tests for code verification on local env</li>
    					<li  class="fragment">Include tests into DoD</li>
    					<li  class="fragment">Include tests run and review into Code Review</li>
    					<li  class="fragment">Run tests on CI on each commit to master  branch</li>
@@ -793,6 +790,12 @@ public void shouldThrowExWhenPassingNull(){
    			</section>
    			<section>
    				<h2>Sell Tests to your Manager</h2>
+   				<section>
+   				<ul>
+   					<li class="fragment">Better team scalability and flexibility</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Implementation can be completed faster (if we have enough money)</p>
+   				</section>
    				<section>
    				<ul>
    					<li class="fragment">Faster change requests implementation</li>
