@@ -274,7 +274,7 @@ public class Test4 {
 					<h1>Assertions framework</h1>
 					<ul>
 						<li class="fragment">native JUnit  assertions</li>
-						<li class="fragment">Hamhrest Matchers</li>
+						<li class="fragment">Hamchrest Matchers</li>
 						<li class="fragment">AssertJ</li>
 						<li class="fragment">...</li>
 					</ul>
@@ -405,7 +405,7 @@ def "should successfully access admin URLs"() {
         expect:
         mockMvc.perform(get(url).session(adminSession()))
         .andReturn().response.status == 200
-        
+
         where:
         url << [
                 '/changePassword.htm',
