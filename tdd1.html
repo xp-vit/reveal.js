@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>TDD for Java Projects</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="dist/reset.css">
+                <link rel="stylesheet" href="dist/reveal.css">
+                <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Test-driven development</h1>
+					<p>Best practices. Problems and solutions</p>
+				</section>
+				<section id="publicquestion">
+					<h2>How do you check your prototype?</h2>
+					<section><pre><code>public static void main(String[] args) {
+   System.out.println(MyUtil.executeMyAlgorithm("Hello Dolly!"));
+}
+>> I said hello, Dolly
+</code></pre>
+				</section>
+				<section><pre><code>@Test
+public void shouldSayHelloDollyWhenPassingHelloDolly() {
+   assertThat(MyUtil.executeMyAlgorithm("Hello Dolly!"))
+   .isEqualTo("I said hello, Dolly");
+}</code></pre>
+				</section>
+				</section>
+
+				<section>
+					<h2>TDD? What the heck is it?</h2>
+					<section>
+						<p>Software development technique where you write your automated tests <strong style="color:orange;">before(!)</strong> you write implementation</p>
+					</section>
+					<section>
+					<h1> </h1>
+					<img src="tdd_cycle.jpeg"/>
+				</section>
+					<section>
+						<p>Software development technique where you write your automated tests <strong style="color:red;">together(!)</strong> with your implementation</p>
+					</section>
+				</section>
+				<section>
+						<h1>Tools</h1>
+						<span class="fragment">
+            			<h3>Main tool: <span class="fragment">Test</span></h3>
+            			</span>
+				</section>
+				<section id="whytotest">
+					<h2>Do I need tests?</h2>
+					<table>
+						<tr>
+							<th>Yes</th>
+							<th>No</th>
+						</tr>
+						<tr>
+							<td><span id="testyes" style="color:#00FF00;"></span></span></td>
+							<td><span id="testno" style="color:red;"></span></span></td>
+						<tr>
+					</table>
+					<section>
+						<span data="0|0" class="fragment">
+            			<h3>Check software quality</h3>
+            			<small>make sure that written code works as expected</small>
+            			</span>
+            			<p data="1|0" class="fragment"><span style="color:#00FF00;">Bonus:</span> Find bugs before Implementation sent to QA (or even before bug introduced)</p>
+        			</section>
+
+        			<section>
+            			<span class="fragment">
+            			<h3>Protect Stability</h3>
+            			<small>make sure that code will continue working in future as you expected originally</small>
+            			</span>
+            			<div style="position:relative">
+            				<span data="2|0" style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;" class="fragment fade-in">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>No need for full manual regression after adding new functionality</span>
+            				</span>
+            				</span>
+            				<span style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;" data="3|0" class="fragment fade-in">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>Easy refactoring</span>
+            				</span>
+            				<span data="4|0" class="fragment fade-in" style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>Protects you from unsafe changes</span>
+            				</span>
+            				<span data="5|0" class="fragment fade-in" style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>Allows you to be Agile - implement change requests faster</span>
+            				</span>
+            			</div>
+        			</section>
+
+        			<section>
+            			<span class="fragment">
+            			<h3>Check if your code have correct behaviour right in IDE</h3>
+            			<small>just write test and run it</small>
+            			</span>
+            			<div style="position:relative">
+            				<span data="6|0" style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;" class="fragment fade-in">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>You don’t need to start any additional software (Browser, Rest Client, Application itself etc.) to check your code</span>
+            				</span>
+            				</span>
+            				<span style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;" data="7|0" class="fragment fade-in">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>No Alt+Tab = You stay focused on your code</span>
+            				</span>
+            			</div>
+        			</section>
+        			<section>
+						<span class="fragment">
+            			<h3>Independent development of components</h3>
+            			<small>just discuss protocol and implement it separatelly</small>
+            			</span>
+            			<p data="8|0" class="fragment"><span style="color:#00FF00;">Bonus:</span> Easier team scalability (<span style="color:red;">(!)</span> managers killer)</p>
+        			</section>
+
+        			<section>
+						<span class="fragment">
+            			<h3>You need to write tests</h3>
+            			</span>
+            			<p data="8|1" class="fragment"><span style="color:red;">Disadvantage:</span> Time spent</p>
+            			<div style="position:relative">
+            			<p class="fragment fade-in" style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+            			<span class="fragment fade-out">If I don't need to make it work, I can go a lot faster. <small>(c) Kent Beck (JUnit creator)</small></span></p>
+
+            			<p class="fragment fade-in" style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+            			<span class="fragment fade-out">(!) Typing is not an issue!</span></p>
+            			</div>
+            			<span style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;" data="9|1" class="fragment fade-in">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>Forces you to analyze your requirements before implementation.</span>
+            				</span>
+        			</section>
+
+        			<section>
+						<span class="fragment">
+            			<h3>You need to maintain tests</h3>
+            			</span>
+            			<p data="9|2" class="fragment"><span style="color:red;">Disadvantage:</span> Time spent</p>
+        			</section>
+
+        			<section>
+            			<span class="fragment">
+            			<h3>You need to refactor your code to make it testable</h3>
+            			<small>it's not always easy to test</small>
+            			</span>
+            			<div style="position:relative">
+            				<span data="9|3" style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;" class="fragment fade-in">
+            					<span class="fragment fade-out">
+            						<span style="color:red;">Disadvantage: </span>Time spent</span>
+            				</span>
+            				</span>
+            				<span style="position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;" data="10|3" class="fragment fade-in">
+            					<span class="fragment fade-out">
+            						<span style="color:#00FF00;">Bonus: </span>Forces your code to be more modular -> better software architecture.</span>
+            				</span>
+            			</div>
+        			</section>
+
+        			<section>
+						<span class="fragment">
+							<h3>Documents your code better than documentation</h3>
+            			<small>it doesn't go out of date, since you're running it all the time</small>
+            			</span>
+            			<p data="11|3" class="fragment"><span style="color:#00FF00;">Bonus:</span> No need to write(read) developer documentation</p>
+        			</section>
+    			</section>
+    			<section>
+    				<h2>Unit vs. Integration Tests</h2>
+    				<section>
+    				<p class="fragment"><strong>Unit testing</strong> - is a software testing method by which individual units of source code.</p>    					
+    				<p class="fragment"><strong>Integration testing</strong> - is software testing method in which individual software modules are combined and tested as a group.</p>
+    				</section>
+    				<section>
+    				    <p><img src="arquillian-integration-testing-made-easy.jpg"></p>
+    				</section>
+    			</section>
+    			<section>
+					<h1>Ok, What do I need?</h1>
+				</section>
+				<section>
+					<h2>Test framework</h2>
+					<p>JUnit</p>
+                    <p>Google test</p>
+				</section>
+				<section>
+				<h2>Mocking</h2>
+					<pre><code>
+@Test
+public void shouldReturnHelloWorld(){
+    //create mock
+    Iterator iMock=mock(Iterator.class);
+    when(iMock.next()).thenReturn("Hello").thenReturn("World");
+    //invoke
+    String result=iMock.next()+" "+iMock.next();
+    //assert
+    assertEquals("Hello World", result);
+    verify(iMock, times(2)).next();
+}</code></pre>				
+				</section>
+
+
+				<section>
+    				<h2>Are my tests good enough?</h2>
+    				<p><strong class="fragment">Coverage</strong> <span class = "fragment">- is a measure used to describe the degree to which the source code of a program is tested by a particular test suite.</span></p>
+    			</section>
+    			<section>
+    				<h2>Coverage Types</h2>
+    				<p class="fragment"> - Class coverage</p>
+    				<p class="fragment"> - Method coverage</p>
+    				<p class="fragment"> - Line(Statement) coverage</p>
+    				<p class="fragment"> - Branch coverage</p>
+    				<p class="fragment"> - Condition coverage</p>
+    			</section>
+
+    			<section>
+    				  <h4>Jacoco + Eclipse</h4>
+    				  <img src="eclipsecoverageview-big.png"/>
+    			</section>
+                <section>
+                      <h4>SonarQube Coverage</h4>
+                      <img src="coverage_sonar.png"/>
+                </section>
+
+				<section>
+				<h2>Anything else?
+					<ul>
+						<li class="fragment">Fast PC (SSD preferable)</li>
+						<li class="fragment">Compatible IDE</li>
+						<li class="fragment">CI</li>
+						<li class="fragment">SonarQube</li>
+					</ul>
+				</section>
+    			<section>
+					<h1>Ok, Let's test?</h1>
+				</section>
+				<section>
+    				<pre><code>public int summ (String x, String y){
+    return Integer.parseInt(x) + Integer.parseInt(y);
+}</code></pre>
+					<section>
+						<h6>What to verify?</h6>
+						<ul>
+							<li class="fragment">0+1=1</li>
+							<li class="fragment">0+2=2</li>
+							<li class="fragment">...</li>
+							<li class="fragment">0+99999=99999</li>
+							<li class="fragment">-1+1=0</li>
+							<li class="fragment">...</li>
+						</ul>
+					</section>
+					<section>
+						<h6>Boundary Conditions</h6>
+						<ul>
+							<li class="fragment">3, 5, 7 (Positive Num)</li>
+							<li class="fragment">-3, -5, -7 (Negative Num)</li>
+							<li class="fragment">0</li>
+							<li class="fragment">Integer.MAX_VALUE, Integer.MIN_VALUE</li>
+							<li class="fragment">null</li>
+							<li class="fragment">one hundred (String number)</li>
+							<li class="fragment">"NooooTaNumber" (NaN)</li>
+						</ul>
+					</section>
+					<section>
+						<table>
+							<tr>
+								<th>
+									\
+								</th>
+								<th>
+									+N
+								</th>
+								<th>
+									-N
+								</th>
+								<th>
+									0
+								</th>
+								<th>
+									IMax
+								</th>
+								<th>
+									IMin
+								</th>
+								<th>
+									null
+								</th>
+								<th>
+									sNum
+								</th>
+								<th>
+									NaN
+								</th>
+							</tr>
+							<tr>
+								<td>
+									+N
+								</td>
+								<td class="fragment"> 
+									+N
+								</td>
+								<td class="fragment">
+									N
+								</td>
+								<td class="fragment">
+									=+N
+								</td>
+								<td class="fragment">
+									Ex
+								</td>
+								<td class="fragment">
+									-N
+								</td>
+								<td class="fragment">
+									Ex
+								</td>
+								<td class="fragment">
+									N
+								</td>
+								<td class="fragment">
+									Ex
+								</td>
+							</tr>
+							<tr class="fragment">
+								<td>
+									-N
+								</td>
+								<td > 
+									N
+								</td>
+								<td>
+									=-N
+								</td>
+								<td>
+									-N
+								</td>
+								<td>
+									N
+								</td>
+								<td>
+									Ex
+								</td>
+								<td>
+									Ex
+								</td>
+								<td>
+									N
+								</td>
+								<td>
+									Ex
+								</td>
+							</tr>
+							<tr class="fragment">
+								<td>
+									0
+								</td>
+								<td > 
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+							</tr>
+							<tr class="fragment">
+								<td>
+									IMax
+								</td>
+								<td > 
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+								<td>
+									...
+								</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<table>
+							<tr>
+								<th>
+									\
+								</th>
+								<th>
+									+N
+								</th>
+								<th>
+									-N
+								</th>
+								<th>
+									0
+								</th>
+								<th>
+									IMax
+								</th>
+								<th>
+									IMin
+								</th>
+								<th>
+									null
+								</th>
+								<th>
+									sNum
+								</th>
+								<th>
+									NaN
+								</th>
+							</tr>
+							<tr>
+								<td>
+									+N
+								</td>
+								<td> 
+									+N
+								</td>
+								<td>
+									N
+								</td>
+								<td>
+									=+N
+								</td>
+								<td>
+									Ex
+								</td>
+								<td>
+									-N
+								</td>
+								<td>
+									Ex
+								</td>
+								<td>
+									N
+								</td>
+								<td>
+									Ex
+								</td>
+							</tr>
+						</table>
+						<p class="fragment"> <pre><code>@Test
+public void shouldReturnSumm(){
+   assertThat(summ("3", "5")).isEqualTo(8);
+}</code></pre>...
+						<pre><code>@Test (expected = NumberFormatException.class)
+public void shouldThrowExWhenPassingNull(){
+  assertThat(summ(null, "5"));
+}</code></pre></p>
+					</section>
+    			</section>
+   			<section>
+   				<h2>What else?</h2>
+   				<ul>
+   					<li  class="fragment">Include tests into estimates</li>
+   					<li  class="fragment">Use tests for code verification on local</li>
+   					<li  class="fragment">Include tests into DoD</li>
+   					<li  class="fragment">Include tests run and review into Code Review</li>
+   					<li  class="fragment">Run tests on CI on each commit to master  branch</li>
+   					<li  class="fragment">Post test Results to SonarQube</li>
+   				</ul>
+   			</section>
+   			
+   			<section>
+   				<h2>Easy Recipe to Cook Tests</h2>
+   				<ul>
+   					<li class="fragment">Don’t be afraid and be Brave!!!</li>
+   					<li class="fragment">Prepare your test infrastructure</li>
+   					<li class="fragment">Test small (atomic) pieces of your functionality</li>
+   					<li class="fragment">Always Test: positive flow, boundary conditions, exceptions</li>
+   					<li class="fragment">Reproduce all manually found bugs with tests</li>
+   					<li class="fragment">Run tests on CI, collect and analyze metrics</li>
+   					<li  class="fragment">Improve your environment constantly</li>
+   					<li  class="fragment">Feel better and sleep well when tests are <span style="color:#0F0;">green</span></li>
+   				</ul>
+   			</section>
+   			<section>
+   				<h2>Motivate your Teammates</h2>
+   				<section>
+   				<ul>
+   					<li class="fragment">Stay focused on task</li>
+   					<li class="fragment">Work convenience and efficiency</li>
+   					<li class="fragment">Better software architecture and maintainability</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Less time spend for work</p>
+   				</section>
+   				<section>
+   				<ul>
+   					<li class="fragment">Better quality</li>
+   					<li class="fragment">Less production issues</li>
+   					<li class="fragment">Higher productivity</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Promotions and Salary Raise</p>
+   				</section>
+   				<section>
+   				<ul>
+   					<li class="fragment">Less production issues</li>
+   				</ul>
+   				<p class="fragment"><span style="color:#00FF00;">Bonus:</span> Sleep Well</p>
+   				</section>
+
+   			</section>
+   			<section>
+   				<h2>Thanks! Questions?</h2>
+   			</section>
+			</div>
+		</div>
+		<script src="dist/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+			Reveal.addEventListener( 'fragmentshown', function( event ) {
+				if(event.fragment.getAttribute("data")){
+					var dataString = event.fragment.getAttribute("data");
+					var count = dataString.split("|");
+					document.getElementById("testyes").innerHTML = count[0];
+					document.getElementById("testno").innerHTML = count[1];
+
+				}
+			} );
+		</script>
+	</body>
+</html>
